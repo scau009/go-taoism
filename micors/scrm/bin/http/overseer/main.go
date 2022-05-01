@@ -2,6 +2,10 @@ package main
 
 import (
 	"dev.taoism.gz.cn/go-taoism/micors/scrm/bin/http/app"
+	"dev.taoism.gz.cn/go-taoism/micors/scrm/config"
+	"dev.taoism.gz.cn/go-taoism/micors/scrm/config/connection"
+	"dev.taoism.gz.cn/go-taoism/micors/scrm/config/logger"
+	"flag"
 	"fmt"
 	"github.com/jpillora/overseer"
 	"github.com/jpillora/overseer/fetcher"
@@ -13,7 +17,10 @@ import (
 var BuildID = "0"
 
 func main() {
-
+	tomlFile := flag.String("c", "../../../config.toml", "配置文件路径")
+	config.SetToml(*tomlFile)
+	connection.InitConnection()
+	logger.InitLogger("http")
 	overseer.Run(overseer.Config{
 		Program: overseerProgram,
 		Address: ":5001",

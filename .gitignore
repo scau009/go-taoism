@@ -4,5 +4,5 @@
 !micors/scrm/bin
 !util
 !library
-!config.toml.dist
+!micors/scrm/config.toml.dist
 !micors

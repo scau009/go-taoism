@@ -8,7 +8,22 @@ import (
 	"sync"
 )
 
+type LogConfig struct {
+	Level      string `json:"level"`
+	MaxSize    int    `json:"maxsize"`
+	MaxAge     int    `json:"max_age"`
+	MaxBackups int    `json:"max_backups"`
+}
+
 type Config struct {
+	Log LogConfig
+
+	WeWork struct {
+		CropId      string
+		AgentId     string
+		CallBackURL string
+	}
+
 	Mongodb struct {
 		Uri      string
 		PoolSize uint64
@@ -62,5 +77,4 @@ func ReloadConfig() {
 	config.Dir.SecretDir = fmt.Sprintf("%s/%s/%s", currentDir, "../secret", config.App.Env)
 	config.Dir.RootDir = fmt.Sprintf("%s/%s", currentDir, "../")
 	config.Dir.AssetDir = fmt.Sprintf("%s/%s", currentDir, "../assets")
-
 }

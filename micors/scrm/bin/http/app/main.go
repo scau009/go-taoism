@@ -14,6 +14,7 @@ func GetRouter() *gin.Engine {
 	r.MaxMultipartMemory = 50
 	//配置路由信息
 	r.Use(access_logger.GinLogger(), access_logger.GinRecovery(true))
+
 	r.GET("/", func(context *gin.Context) {
 		context.JSON(http.StatusOK, gin.H{
 			"app":       "scrm api",
@@ -23,6 +24,10 @@ func GetRouter() *gin.Engine {
 	})
 
 	ctl := controller.NewController()
-	r.GET("/api/login", ctl.GetLoginQrCode)
+
+	g := r.Group("/api")
+	{
+		g.GET("/currentUser", ctl.GetCurrentUser)
+	}
 	return r
 }

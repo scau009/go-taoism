@@ -68,6 +68,12 @@ func (r *Controller) SendJsonResponse(ctx *gin.Context, optionFunctions ...OptFu
 	for _, f := range optionFunctions {
 		f(&resp)
 	}
+
+	ctx.Header("Access-Control-Allow-Credentials", "true")
+	ctx.Header("Access-Control-Allow-Methods", "POST,GET,OPTIONS,DELETE,PUT,HEAD,PATCH")
+	ctx.Header("Access-Control-Allow-Origin", ctx.Request.Header.Get("Origin"))
+	ctx.Header("Access-Control-Allow-Headers", ctx.Request.Header.Get("Access-Control-Request-Headers"))
+
 	// 所有的接口都响应 200，但是实际业务逻辑按照结构内的定义
 	ctx.JSON(http.StatusOK, resp)
 }

@@ -5,4 +5,5 @@
 !deploy
 !test
 !var
+!service
 !config.toml.dist
